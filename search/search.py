@@ -88,7 +88,7 @@ def depthFirstSearch(problem):
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
-    "*** YOUR CODE HERE ***"
+    """  THIS IS MY SOLUTION, NOT COMPLETED
     from game import Directions
     s = Directions.SOUTH
     w = Directions.WEST
@@ -116,33 +116,41 @@ def depthFirstSearch(problem):
                 stack.push(currentState)
                 stack.push(successor)
                 visited.append(successor[0])
-
-
-
-
-
-
-    
     """
-    path.append(nextMove)
-    print("NEXT MOVE HARD CODED->", path)
-    """
-    """
-    COPY PASTE
-    stack, path = [starting], []
-    while stack:
-        vertex = stack.pop()
-        if vertex in path:
-            continue
-        path.append(vertex)
-        for neighbor in problem[vertex]:
-            stack.append(neighbor)
 
-    return path
-    """
-    print(stack)
 
-    return []
+    """ THIS IS THE SOLUTION MADE BY CRISTIAN"""
+    start_point = problem.getStartState()
+    if problem.isGoalState(start_point):
+        "TO DO"
+    else:
+        s = util.Stack()
+        visited = [start_point]
+        directions = []
+        s.push([start_point])
+
+        while not s.isEmpty():
+            u = s.list[-1]
+
+            if (problem.isGoalState(u[0]) == True):
+                s.list.remove(s.list[0])
+                for child in s.list:
+                    directions.append(child[1])
+                return directions
+            else:
+                children = problem.getSuccessors(u[0])
+                allVisited = True
+                for child in children:
+                    if child[0] not in visited:
+                        visited.append(child[0])
+                        s.push(child)
+                        allVisited = False
+                        break
+
+                if (allVisited):
+                    s.pop()
+
+        print("no goal")
 
 
 
